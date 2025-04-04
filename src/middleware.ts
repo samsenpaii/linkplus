@@ -1,30 +1,27 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import { auth } from './auth'
- 
-// This function can be marked `async` if using `await` inside
+import { auth } from "@/auth"; // Auth.js authentication
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
 export async function middleware(request: NextRequest) {
+  const session = await auth(); // Get user session
 
-  const path = request.nextUrl.pathname
 
-  const isPublicPath = path === '/signin' || '/';
+  console.log("middleware called")
 
-  const session = await auth()
+  const protectedRoutes = ["/profile", "/dashboard"]; 
+  
 
-  if(session?.user && isPublicPath){
-    return NextResponse.redirect(new URL('/profile', request.url))
+  const isProtected = protectedRoutes.some((route) =>
+    request.nextUrl.pathname.startsWith(route)
+  );
+
+  if (isProtected && !session?.user) {
+    return NextResponse.redirect(new URL("/signin", request.url));
   }
 
-  if(!isPublicPath && !session?.user){
-    return NextResponse.redirect(new URL('/signin', request.url))
-  }
-
+  return NextResponse.next();
 }
- 
-// See "Matching Paths" below to learn more
+
 export const config = {
-  matcher: [
-    '/profile',
-    '/signin',
-  ]
-}
+  matcher: ["/profile", "/dashboard"],
+};
