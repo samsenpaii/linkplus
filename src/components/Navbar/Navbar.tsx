@@ -21,7 +21,7 @@ export default function Navbar() {
             />
           </div>
 
-          <div className="bg-blue-500 rounded-sm p-1 flex items-center justify-center text-[#F6F5F4] hover:cursor-pointer">
+          <div className="bg-blue-600 rounded-sm p-1 flex items-center justify-center text-[#F6F5F4] hover:cursor-pointer hover:bg-blue-400">
             <PlusIcon />
             <div className="pr-2 pl-2">Add link</div>
           </div>

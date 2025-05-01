@@ -10,7 +10,7 @@ export default function signin() {
   const router = useRouter();
 
   const handleGoogleSignIn = async () => {
-    await signIn("google" , {callbackUrl : "/profile"});
+    await signIn("google" , {callbackUrl : "/my"});
   };
 
   return (

@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
 
   console.log("middleware called")
 
-  const protectedRoutes = ["/profile", "/dashboard"]; 
+  const protectedRoutes = ["/profile", "/dashboard","/my"]; 
   
 
   const isProtected = protectedRoutes.some((route) =>
@@ -23,5 +23,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile", "/dashboard"],
+  matcher: ["/profile", "/dashboard","/my"],
 };

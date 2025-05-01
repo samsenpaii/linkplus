@@ -10,7 +10,7 @@ export default async function Profile() {
       <div>
         <p><strong>Name:</strong> {session.user.name}</p>
         <p><strong>Email:</strong> {session.user.email}</p>
-        <p><strong>Google ID:</strong> {session.user.id}</p> {/* Now accessible */}
+        <p><strong>Google ID:</strong> {session.user.id}</p>
         
         <form action={async () => {
           "use server";
