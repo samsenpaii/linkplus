@@ -12,16 +12,16 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-export default function DialogDemo() {
+export default function AddLinkBtn() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-blue-600 rounded-sm p-1 flex gap-2 items-center justify-center text-[#F6F5F4] hover:cursor-pointer hover:bg-blue-400 font-sans">
+        <Button className="bg-blue-600 rounded-sm flex items-center justify-center text-[#F6F5F4] hover:cursor-pointer hover:bg-blue-400 font-sans">
           <PlusIcon />
-          <div className="">Add link</div>
+          <div className="pr-1 pl-1">Add link</div>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] font-sans">
+      <DialogContent className="sm:max-w-[425px] font-sans bg-[#FEFEFF]">
         <DialogHeader>
           <DialogTitle>Add Link</DialogTitle>
           <DialogDescription>
@@ -35,13 +35,13 @@ export default function DialogDemo() {
             </Label>
             <Input
               id="URL"
-              placeholder="https://your-link.com"
+              defaultValue="https://google.com"
               className="col-span-3"
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save Link</Button>
+          <Button type="submit">Save</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

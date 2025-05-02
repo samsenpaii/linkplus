@@ -1,7 +1,7 @@
 import { signOut } from "@/auth";
 import UserIcon from "../icons/userIcon";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
+
 
 interface Profileprops{
     img : string
@@ -13,7 +13,7 @@ export default function Profile(props : Profileprops){
         <>  
             <div className="bg-[#F6F5F4]">
                 <DropdownMenu>
-                    <DropdownMenuTrigger className="flex flex-row text-[#312b2b] items-end hover:cursor-pointer"><UserIcon></UserIcon>  {props.name}</DropdownMenuTrigger>
+                    <DropdownMenuTrigger className="flex flex-row text-[#312b2b] items-end hover:cursor-pointer hover:bg-[#e7e0e0] p-1 rounded-sm"><UserIcon></UserIcon>  {props.name}</DropdownMenuTrigger>
                     <DropdownMenuContent className="bg-[#F6F5F4] font-sans">
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />

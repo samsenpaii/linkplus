@@ -5,7 +5,7 @@ export default function GetStarted(){
 
   const router = useRouter();
   const handdleClick = ()=>{
-    router.push("/profile")
+    router.push("/my")
   }
   
   return (
