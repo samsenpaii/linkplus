@@ -1,3 +1,4 @@
+import Content from "@/components/Content/Content";
 import Navbar from "@/components/Navbar/Navbar"
 import Sidebar from "@/components/Sidebar/Sidebar";
 
@@ -12,6 +13,7 @@ function page() {
       {/* Main Content Area */}
       <div className="h-screen flex-1 flex flex-col">
         <Navbar />
+        <Content/>     
       </div>
     </div>
   );
