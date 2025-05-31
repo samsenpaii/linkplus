@@ -21,7 +21,7 @@ export default async function Profile() {
       </div>
     );
   } else {
-    return (
+    return ( 
       <form action={async () => {
         "use server";
         await signIn("google");

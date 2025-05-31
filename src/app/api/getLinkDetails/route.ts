@@ -1,11 +1,31 @@
 import { connectDB } from "@/app/db/db";
 import Link from "@/app/db/models/link";
+import { auth } from "@/auth";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
 
+
+export async function GET(request) {
+  const session = await auth();
+  try {
+    await connectDB();
+    const userId = session?.user?.id?.toString();
+    console.log("GET userId:", userId); // Debug log
+    if (!userId) {
+      return NextResponse.json({ success: false, links: [] }, { status: 200 });
+    }
+    const links = await Link.find({ userId }).sort({ createdAt: -1 });
+    return NextResponse.json({ success: true, links });
+  } catch (error) {
+    console.error("Error:", error.message);
+    return NextResponse.json({ error: "Failed to fetch links" }, { status: 500 });
+  }
+}
 export async function POST(request:Request) {
+  const session = await auth();
   const { url } = await request.json();
   await connectDB();
+  const userId = session?.user?.id;
 
   try {
     // Validate URL
@@ -20,8 +40,8 @@ export async function POST(request:Request) {
     // Prompt for title and description
     const prompt = `
       Given the URL "${url}", provide:
-      1. A concise title for the webpage.
-      2. A short description (5-6 sentences) of what the webpage is about and what happens when the link is clicked.
+      1. A accurate title for the webpage link.
+      2. A short description (5-6 sentences) of what the webpage is about and what happens when the link is clicked. make it accurate. 
       Format the response as:
       Title: [Your title]
       Description: [Your description]
@@ -36,7 +56,7 @@ export async function POST(request:Request) {
     const description = descLines.join(" ").replace("Description: ", "").trim();
 
     // Save to database
-    await Link.create({ url, title, description });
+    await Link.create({ url, title, description , userId });
 
     return NextResponse.json({ success: true, title, description });
   } catch (error) {
