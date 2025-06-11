@@ -1,6 +1,7 @@
-import { signOut } from "@/auth";
+
 import UserIcon from "../icons/userIcon";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { logout } from "../actions/logout";
 
 
 interface Profileprops{
@@ -19,14 +20,11 @@ export default function Profile(props : Profileprops){
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>Profile</DropdownMenuItem>
                         <DropdownMenuItem>Settings</DropdownMenuItem>
-                        <DropdownMenuItem>
-                            <form action={ async ()  =>{
-                                "use server"
-                                await signOut();
-                            }}>
-                            <button type="submit">Sign Out</button>
+                        <form action={logout}>
+                            <DropdownMenuItem asChild>
+                                <button type="submit">Sign Out</button>
+                            </DropdownMenuItem>
                             </form>
-                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>

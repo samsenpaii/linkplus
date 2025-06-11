@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar/Navbar"
 import Sidebar from "@/components/Sidebar/Sidebar";
 
 function page() {
+
+
   return (
     <div className="h-screen w-screen flex">
       {/* Sidebar */}
@@ -12,8 +14,8 @@ function page() {
 
       {/* Main Content Area */}
       <div className="h-screen flex-1 flex flex-col">
-        <Navbar />
-        <Content/>     
+          <Navbar />
+          <Content/>     
       </div>
     </div>
   );

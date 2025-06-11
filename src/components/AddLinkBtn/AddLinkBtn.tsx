@@ -35,8 +35,8 @@ export default function AddLinkBtn() {
       const data = await response.json();
       if (response.ok && data.success) {
         setResult(data);
-        setUrl(""); // Reset URL
-        setOpen(false); // Close dialog
+        setUrl("");
+        setOpen(false); // Trigger refresh
       } else {
         setError(data.error || "Failed to fetch details");
       }
