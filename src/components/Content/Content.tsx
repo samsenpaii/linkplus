@@ -2,9 +2,16 @@
 import { useEffect, useState } from "react";
 import Link from "../Link/Link";
 
+interface LinkData {
+  _id: string;
+  url: string;
+  title: string;
+  description: string;
+}
+
 export default function Content() {
-  const [links, setLinks] = useState([]);
-  const [error, setError] = useState(null);
+  const [links, setLinks] = useState<LinkData[]>([]);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const getData = async () => {
@@ -17,8 +24,8 @@ export default function Content() {
       } else {
         setError(data.error || "Failed to fetch links");
       }
-    } catch (err) {
-      setError("An error occurred while fetching links");
+    } catch {
+      setError("An error occurred");
     } finally {
       setLoading(false);
     }
@@ -39,6 +46,7 @@ export default function Content() {
           {links.map((link) => (
             <Link
               key={link._id}
+              id={link._id}
               url={link.url}
               title={link.title}
               description={link.description}

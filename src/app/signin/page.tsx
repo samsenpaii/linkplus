@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-export default function signin() {
+
+export default function Signin() {
 
   const router = useRouter();
 
@@ -55,7 +56,7 @@ export default function signin() {
             
 
             <p className="text-center text-black text-sm mt-4">
-              Don't have an account? <a onClick={()=>router.push("/signup")} className="underline cursor-pointer">SingUp</a>
+              Don&apos;t have an account? <a onClick={()=>router.push("/signup")} className="underline cursor-pointer">SingUp</a>
             </p>
           </div>
           <Image src="/loginImg.png" width={500} height={500} alt="loginImg"></Image>

@@ -1,25 +1,24 @@
-import mongoose from 'mongoose';
+// src/app/db/db.ts
+import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
 
-
-if(!MONGODB_URI){
-    console.log("enter a vaid MONGODB URI")
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-declare global {
-    var mongooseConn: Promise<typeof mongoose> | undefined;
+// ✅ Use a safely typed global object
+const globalForMongo = globalThis as unknown as {
+  mongooseConn?: Promise<typeof mongoose>;
+};
+
+let cached = globalForMongo.mongooseConn;
+
+if (!cached) {
+  cached = globalForMongo.mongooseConn = mongoose.connect(MONGODB_URI, {
+    dbName: "LinkPlus",
+    bufferCommands: false,
+  });
 }
 
-export async function connectDB() {
-    if (!global.mongooseConn) {
-        console.log("Connecting to MongoDB...");
-        global.mongooseConn = mongoose.connect(MONGODB_URI, {
-            dbName: "LinkPlus",
-            bufferCommands: false,
-        });
-    } else {
-        console.log("Using existing DB connection");
-    }
-    return global.mongooseConn;
-}
+export const connectDB = async () => cached;

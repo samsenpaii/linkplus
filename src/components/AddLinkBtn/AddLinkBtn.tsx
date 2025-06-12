@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label";
 
 export default function AddLinkBtn() {
   const [url, setUrl] = useState("https://google.com");
-  const [result, setResult] = useState(null);
+  const [, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
@@ -25,7 +25,6 @@ export default function AddLinkBtn() {
     setLoading(true);
     setError(null);
 
-    try {
       const response = await fetch("/api/getLinkDetails", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,11 +43,6 @@ export default function AddLinkBtn() {
       } else {
         setError(data.error || "Failed to fetch details");
       }
-    } catch (err) {
-      setError("An error occurred");
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (

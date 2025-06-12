@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 interface LinkProps {
   id: string;
   url: string;
@@ -21,43 +22,31 @@ interface LinkProps {
 
 
 
-export default function Link({ id, url, title, description, onDelete }: LinkProps) {
-
-
+export default function Link({ url, title, description,  }: LinkProps) {
 
   let hostname = "Unknown";
-  try {
     const link = new URL(url);
-    hostname = link.hostname;
-  } catch (err) {
-    console.error("Invalid URL:", url);
-  }
-
+    hostname = link.hostname; 
+  
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${url}&size=100x100`;
 
   const [copyStatus, setCopyStatus] = useState("");
 
   const copyUrlToClipboard = async () => {
-    try {
       await navigator.clipboard.writeText(url);
       setCopyStatus("URL copied!");
-    } catch (err) {
-      setCopyStatus("Failed to copy URL");
-    }
+    
     setTimeout(() => setCopyStatus(""), 2000);
   };
 
   const copyQrImageToClipboard = async () => {
-    try {
       const response = await fetch(qrUrl);
       const blob = await response.blob();
       await navigator.clipboard.write([
         new ClipboardItem({ [blob.type]: blob }),
       ]);
       setCopyStatus("QR code copied!");
-    } catch (err) {
-      setCopyStatus("Failed to copy QR");
-    }
+    
     setTimeout(() => setCopyStatus(""), 2000);
   };
 
@@ -125,11 +114,13 @@ export default function Link({ id, url, title, description, onDelete }: LinkProp
             </p>
 
             <div className="flex items-center gap-4 mt-1">
-              <img
-                src={qrUrl}
-                alt={`QR code for ${hostname}`}
-                className="w-[100px] h-[100px] border border-gray-200 rounded-sm"
-              />
+              <Image
+                  src={qrUrl}
+                  alt={`QR code for ${hostname}`}
+                  width={100}
+                  height={100}
+                  className="border border-gray-200 rounded-sm"
+                />
               <div className="flex flex-col gap-2">
                 <Button
                   variant="outline"

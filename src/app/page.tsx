@@ -32,7 +32,7 @@ export default async function Profile() {
            Frequently Asked Questions
           </h1>
 
-          <p className="p-2">Got questions? We've got answers. If you can't find what you're looking for, feel free to contact our support team.</p>
+          <p className="p-2">Got questions? WeDon&apos;ve got answers. If you canDon&apos;t find what you&apos;ve looking for, feel free to contact our support team.</p>
         </div>
           <div className="text-black md:grid md:grid-cols-2 md:gap-10 ml-10 mr-10 m-5">
             <FeatureCard
@@ -41,7 +41,7 @@ export default async function Profile() {
             />
             <FeatureCard
               title="Understand Your Links with AI"
-              description="LinkPlus’s intelligent engine scans each link to provide a clear, concise summary of its content and purpos."
+              description="LinkPlus&apos;s intelligent engine scans each link to provide a clear, concise summary of its content and purpos."
             />
             <FeatureCard
               title="Instant QR Codes for Easy Access "
