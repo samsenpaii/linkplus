@@ -3,17 +3,21 @@ import GoogleIcon from "@/components/icons/googleIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 
 export default function SignUp() {
 
   const handleGoogleSignUp = async () => {
-    await signIn("google" , {callbackUrl : "/profile"});
+    await signIn("google" , {callbackUrl : "/my"});
   };
 
   return (
     <>
-        <section className="bg-gradient-to-br from-blue-500 to-[#F7F7F7] h-screen w-screen flex items-center justify-center">
-          <div className="bg-white/20 backdrop-blur-lg border border-white/30 shadow-lg rounded-2xl p-6 w-96">
+        <section className="bg-[#F1E7E7] h-screen w-screen md:flex md:flex-row items-center justify-center">
+          <Image alt="signupImg" src="/signupImg.png" height={700} width={500}></Image>
+
+
+          <div className=" bg-[#ccd9e7] backdrop-blur-lg border font-sans border-white/30 shadow-lg rounded-2xl p-6 w-96">
             <h2 className="text-black text-2xl font-semibold text-center mb-6">SignUp</h2>
 
             <div className="mb-4">
@@ -57,6 +61,7 @@ export default function SignUp() {
             </Button>
             
           </div>
+          
         </section>
     </>
   ) 

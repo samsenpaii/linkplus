@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
 
   console.log("middleware called")
 
-  const protectedRoutes = ["/profile", "/dashboard","/my"]; 
+  const protectedRoutes = ["/my"]; 
   
 
   const isProtected = protectedRoutes.some((route) =>

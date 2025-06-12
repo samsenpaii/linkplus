@@ -11,10 +11,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 import { useState } from "react";
+interface LinkProps {
+  id: string;
+  url: string;
+  title: string;
+  description: string;
+  onDelete?: (url: string) => void; // Updated to use url
+}
 
 
 
-export default function Link({ id, url, title, description }) {
+export default function Link({ id, url, title, description, onDelete }: LinkProps) {
+
+
+
   let hostname = "Unknown";
   try {
     const link = new URL(url);
@@ -41,17 +51,43 @@ export default function Link({ id, url, title, description }) {
     try {
       const response = await fetch(qrUrl);
       const blob = await response.blob();
-
       await navigator.clipboard.write([
         new ClipboardItem({ [blob.type]: blob }),
       ]);
-
       setCopyStatus("QR code copied!");
     } catch (err) {
       setCopyStatus("Failed to copy QR");
     }
     setTimeout(() => setCopyStatus(""), 2000);
   };
+
+  const deleteLink = async () => {
+  if (!confirm("Are you sure you want to delete this link?")) return;
+
+  try {
+    const response = await fetch("/api/getLinkDetails", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setTimeout(() => {
+        location.reload(); // Refresh page after 2 seconds
+      }, 1000);
+    } else {
+      setCopyStatus(data.error || "Failed to delete link");
+      setTimeout(() => setCopyStatus(""), 2000);
+    }
+    } catch (err) {
+      console.error("Delete error:", err);
+      setCopyStatus("Failed to delete link");
+      setTimeout(() => setCopyStatus(""), 2000);
+    }
+  };
+
 
   return (
     <Dialog>
@@ -79,47 +115,76 @@ export default function Link({ id, url, title, description }) {
               {title || "Untitled"}
             </a>
           </DialogTitle>
-        <DialogDescription>
-          {description || "No description available"}
-        </DialogDescription>
+          <DialogDescription className="text-[#183130] font-sans">
+            {description || "No description available"}
+          </DialogDescription>
 
-        <div className="flex flex-col gap-4 mt-2">
-          <p className="text-sm text-neutral-600">
-            Hostname: <span className="font-medium">{hostname}</span>
-          </p>
+          <div className="flex flex-col gap-4 mt-2">
+            <p className="text-sm text-neutral-600">
+              Hostname: <span className="font-medium">{hostname}</span>
+            </p>
 
-          <div className="flex items-center gap-4 mt-1">
-            <img
-              src={qrUrl}
-              alt={`QR code for ${hostname}`}
-              className="w-[100px] h-[100px] border border-gray-200 rounded-sm"
-            />
-            <div className="flex flex-col gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={copyQrImageToClipboard}
-                className="flex items-center gap-2"
-              >
-                <Copy className="h-4 w-4" />
-                Copy QR
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={copyUrlToClipboard}
-                className="flex items-center gap-2"
-              >
-                <Copy className="h-4 w-4" />
-                Copy URL
-              </Button>
+            <div className="flex items-center gap-4 mt-1">
+              <img
+                src={qrUrl}
+                alt={`QR code for ${hostname}`}
+                className="w-[100px] h-[100px] border border-gray-200 rounded-sm"
+              />
+              <div className="flex flex-col gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={copyQrImageToClipboard}
+                  className="flex items-center gap-2"
+                >
+                  <Copy className="h-4 w-4" />
+                  Copy QR
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={copyUrlToClipboard}
+                  className="flex items-center gap-2"
+                >
+                  <Copy className="h-4 w-4" />
+                  Copy URL
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={deleteLink}
+                  className="flex items-center gap-2"
+                >
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
+                  Delete Link
+                </Button>
+              </div>
             </div>
+            {copyStatus && (
+              <p
+                className={`text-xs mt-1 ${
+                  copyStatus.includes("Failed")
+                    ? "text-red-600"
+                    : "text-green-600"
+                }`}
+              >
+                {copyStatus}
+              </p>
+            )}
           </div>
-        {copyStatus && (
-          <p className="text-xs text-green-600 mt-1">{copyStatus}</p>
-        )}
-      </div>
-
         </DialogHeader>
       </DialogContent>
     </Dialog>

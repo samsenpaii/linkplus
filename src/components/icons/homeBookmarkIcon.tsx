@@ -1,5 +1,5 @@
 
-function BookmarkIcon() {
+function HomebookIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-bookmark-check" viewBox="0 0 16 16">
         <path fillRule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
@@ -8,4 +8,4 @@ function BookmarkIcon() {
   )
 }
 
-export default BookmarkIcon
+export default HomebookIcon

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
+import Image from "next/image";
 export default function signin() {
 
   const router = useRouter();
@@ -15,8 +15,8 @@ export default function signin() {
 
   return (
     <>
-        <section className="bg-gradient-to-br from-blue-500 to-[#F7F7F7] h-screen w-screen flex items-center justify-center">
-          <div className="bg-white/20 backdrop-blur-lg border border-white/30 shadow-lg rounded-2xl p-6 w-96">
+        <section className="bg-[#F1E7E7] h-screen w-screen flex flex-row items-center justify-center">
+          <div className="font-sans bg-[#ccd9e7] backdrop-blur-lg border border-white/30 shadow-lg rounded-2xl p-6 w-96">
             <h2 className="text-black text-2xl font-semibold text-center mb-6">Signin</h2>
         
             <div className="mb-4">
@@ -35,19 +35,19 @@ export default function signin() {
 
             <div className="flex justify-between items-center text-black text-sm mb-6">
               <label className="flex items-center">
-                <input type="checkbox" className="mr-2 accent-white" />
+                <input type="checkbox" className="mr-2 accent-white cursor-pointer" />
                 Remember me
               </label>
               <a href="#" className="hover:underline">Forgot Password?</a>
             </div>
 
             <Button className="w-full bg-white/20 hover:bg-white/30 text-black py-3 rounded-lg transition font-semibold">
-              Signin
+              SignIn
             </Button>
 
             <hr className="border-t border-black m-5"/>
 
-            <Button className="w-full bg-white/20 hover:bg-white/30 text-black py-3 rounded-lg transition font-semibold"
+            <Button className=" cursor-pointer w-full bg-white/20 hover:bg-white/30 text-black py-3 rounded-lg transition font-semibold"
               onClick={handleGoogleSignIn}
             >
               Sigin with Google <GoogleIcon></GoogleIcon>
@@ -58,6 +58,7 @@ export default function signin() {
               Don't have an account? <a onClick={()=>router.push("/signup")} className="underline cursor-pointer">SingUp</a>
             </p>
           </div>
+          <Image src="/loginImg.png" width={500} height={500} alt="loginImg"></Image>
         </section>
     </>
   ) 

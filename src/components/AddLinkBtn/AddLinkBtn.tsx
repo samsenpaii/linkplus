@@ -36,7 +36,11 @@ export default function AddLinkBtn() {
       if (response.ok && data.success) {
         setResult(data);
         setUrl("");
-        setOpen(false); // Trigger refresh
+        setTimeout(() => {
+        location.reload(); // Refresh page after 2 seconds
+      }, 1000); 
+        setOpen(false);
+        // Trigger refresh
       } else {
         setError(data.error || "Failed to fetch details");
       }

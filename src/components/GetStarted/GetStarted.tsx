@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+import RightarrowIcon from "../icons/rightarrowIcon";
 
 export default function GetStarted(){
 
@@ -10,9 +11,9 @@ export default function GetStarted(){
   
   return (
   <>
-    <button className="bg-black text-white p-3 rounded-sm hover:bg-slate-800 cursor-pointer"
+    <button className="bg-black flex justify-center items-center text-white p-3 hover:bg-slate-800 cursor-pointer rounded-3xl"
       onClick={handdleClick} >
-      Get Started For Free
+      Get Started <RightarrowIcon></RightarrowIcon>
       </button>
   </>
   )
